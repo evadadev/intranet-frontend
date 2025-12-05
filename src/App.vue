@@ -4,7 +4,7 @@
   <div class="min-h-screen bg-gray-50 flex items-center justify-center p-6">
     <div class="max-w-lg w-full text-center">
       <h1 class="text-3xl font-bold text-sky-600 mb-4">
-          Se actualiza la pagina correctamente con HMR y Tailwind CSS funciona!
+          ya tengo tambien instalasdo tailwindcss
       </h1>
       <p class="text-gray-700 mb-6">
         Si ves este texto con estilo, Tailwind está funcionando y HMR también.
