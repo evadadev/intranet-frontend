@@ -1,149 +1,88 @@
+<script setup>
+import BtnBase from '../components/ui/BtnBase.vue'
+import TextInput from '../components/ui/TextIput.vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+const authStore = useAuthStore()
+
+onMounted(() => {
+  if (authStore.isAuthenticated) {
+    router.push('/')
+  }
+})
+
+const handleLogin = async () => {
+  // clausula guardia
+  if (!email.value || !password.value) {
+    console.log('introduce el el email y la contraseña')
+    return
+  }
+
+  try {
+    const response = await fetch('http://localhost:8000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    })
+
+    const data = await response.json()
+
+    // Guardar usuario opcionalmente
+    authStore.setAuth(data.token, data.user)
+
+    // Redirigir al panel de inicio
+    router.push('/')
+  } catch (error) {
+    console.log('Error en la solicitud de login:', error)
+  }
+}
+
+function handleRegister() {
+  router.push('/register')
+}
+</script>
+
 <template>
-  <div class="container">
-    <div class="items">
-      <img src="../../public/img-oficina.png" alt="imagen-login" />
+  <div class="flex flex-row items-center justify-items-start">
+    <div class="md:flex w-1/2 h-screen hidden">
+      <img src="../../public/img-oficina.png" alt="imagen-login" class="opacity-50" />
     </div>
-    <div class="items form-login">
-        <div class="text">
-            <h2>Bienvenidos</h2>
-            <p>Introduce tu usuario y clave de acceso</p>
+    <div class="md:w-1/2 w-full h-screen flex flex-col items-center justify-center px-5">
+      <div class="flex flex-col max-w-[310px]">
+        <div class="pb-3">
+          <h2 class="text-3xl font-bold">Bienvenidos</h2>
+          <p class="text-sm">Introduce tu usuario y clave de acceso</p>
         </div>
-      <!-- <form @submit.prevent="handleLogin">
-            <InputField v-model="email" placeholder="Email" />
-            <InputField v-model="password" type="password" placeholder="Password" />
-            <button :disabled="loading">Login</button>
-            <p v-if="error" class="error">{{ error }}</p>
-        </form> -->
-      <form>
-        <div class="input">
-          <label for="email">Correo Electrónico</label>
-          <input type="email" placeholder="MiCorreo@gamil.com" />
-          <label for="password">Contraseña</label>
-          <input type="password" placeholder="Escriba su Contraseña" />
+        <div>
+          <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
+          <TextInput
+            v-model="password"
+            type="password"
+            labelName="contraseña"
+            placeholder="MiContraseña"
+          />
+          <div>
+            <a href="" class="flex justify-end text-xs text-sky-600 mb-2"
+              >¿Has olvidado la contraseña?</a
+            >
+            <BtnBase textBtn="Iniciar Sesión" class="w-[310px] h-8" @click="handleLogin" />
+            <BtnBase textBtn="Registrarse" class="w-[310px] h-8" @click="handleRegister" />
+          </div>
         </div>
-        <div class="btn">
-            <a href="">¿Has olvidado la contraseña?</a>
-            <button type="submit">Inciar Sección</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-// import { ref } from 'vue';
-// import { useRouter } from 'vue-router';
-// import { useAuth } from '../composables/useAuth';
-
-// const email = ref('');
-// const password = ref('');
-// const router = useRouter;
-// const { login, error, loading } = useAuth();
-
-// const handleLogin = async () => {
-//     try {
-//         await login(email.value, password.value);
-//         router.push('/dashboard');
-//     } catch (err) {
-//         console.log('contraseña erronea:', err)
-//     }
-// }
-</script>
-
-<style scoped>
-body {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-}
-h2 {
-    text-align: start;
-    font-family: cursive;
-    margin-bottom: unset;
-}
-p {
-    margin-top: unset;
-    font-size: small;
-    color: gray;
-}
-.container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 10%;
-
-}
-
-.items {
-  width: 100vw;
-  height: 100hw;
-  display: flex;
-  flex-direction: column;
-  /* align-items: flex-start; */
-  /* text-align: center; */
-  /* justify-content: flex-start; */
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-}
-
-.form-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    
-}
-
-.input {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-input {
-  width: 300px;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 5px;
-}
-
-label {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.btn {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  gap: 10px;
-}
-button {
-  width: 310px;
-  height: 35px;
-  border-radius: 5px;
-  border: none;
-  background-color: #2b7fff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-a {
-    font-size: small;
-    color: #2b7fff;
-    text-decoration: none;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: flex-end;
-}
-</style>
+<style scoped></style>
