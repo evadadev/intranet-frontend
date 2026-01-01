@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  },
+  "welcome": "Bienvenido a la Intranet",
+  "hello": "Hola, {name}",
+  "language": "Idioma"
+}
