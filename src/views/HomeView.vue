@@ -3,14 +3,9 @@ import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { onMounted } from 'vue'
 
 const router = useRouter()
 const { logout, isAuthenticated, user } = useAuthStore()
-
-onMounted(() => {
-  isAuthenticated ? router.push('/') : router.push('/login')
-})
 
 const handleLogout = async () => {
   try {
