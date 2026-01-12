@@ -1,7 +1,37 @@
 <script setup>
+import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { onMounted } from 'vue'
 
-// Aquí puedes importar stores, composables o datos si lo necesitas
+const router = useRouter()
+const { logout, isAuthenticated, user } = useAuthStore()
+
+onMounted(() => {
+  isAuthenticated ? router.push('/') : router.push('/login')
+})
+
+const handleLogout = async () => {
+  try {
+    await fetch('http://localhost:8000/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        user: user.value,
+      }),
+    })
+    if (isAuthenticated) {
+      logout()
+      router.push('/login')
+    }
+  } catch (error) {
+    console.log('Error al cerrar sesión:', error)
+  }
+}
 </script>
 <template>
   <div class="bg-neutral-100 grid grid-cols-[200px_1fr] gap-4 p-2 min-h-screen">
@@ -10,7 +40,12 @@ import CardBase from '@/components/ui/CardBase.vue'
         class="fixed top-0 bottom-0 right-0 left-0 w-[200px] p-4 gap-4 border-r border-r-gray-300 bg-gray-50"
       >
         <h2 class="mb-10">Portal de empleados</h2>
-        <ul class="flex flex-col">
+        <ul class="static flex flex-col">
+          <BtnBase
+            textBtn="Cerrar sesión"
+            class="absolute bottom-1 left-2 w-[110px] h-8"
+            @click="handleLogout"
+          />
           <li class="mb-2">
             <router-link class="text-[#2b7fff] no-underline hover:underline" to="/login"
               >Registrarse</router-link
@@ -64,7 +99,7 @@ import CardBase from '@/components/ui/CardBase.vue'
         <h1 class="flex">MI PORTAL</h1>
         <p class="">Esta es la página de inicio</p>
         <card-base
-          titulo-card="Raúl Rodriguez"
+          :titulo-card="user?.name"
           class="flex flex-row items-center gap-2 h-12"
           :avatar="true"
         />

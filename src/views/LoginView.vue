@@ -37,11 +37,7 @@ const handleLogin = async () => {
     })
 
     const data = await response.json()
-
-    // Guardar usuario opcionalmente
     authStore.setAuth(data.token, data.user)
-
-    // Redirigir al panel de inicio
     router.push('/')
   } catch (error) {
     console.log('Error en la solicitud de login:', error)
