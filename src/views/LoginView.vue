@@ -17,7 +17,6 @@ onMounted(() => {
 })
 
 const handleLogin = async () => {
-  // clausula guardia
   if (!email.value || !password.value) {
     console.log('introduce el el email y la contraseña')
     return
