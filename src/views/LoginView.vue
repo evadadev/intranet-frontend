@@ -1,9 +1,11 @@
 <script setup>
+import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
+
+import { useAuthStore } from '@/stores/auth'
+
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextIput.vue'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 
 const email = ref('')
 const password = ref('')

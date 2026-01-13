@@ -1,10 +1,10 @@
 <script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextIput.vue'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import ImputErrorField from '@/components/ImputErrorField.vue'
+import InputErrorField from '../components/ui/InputErrorField.vue'
 
 const name = ref('')
 const email = ref('')
@@ -12,17 +12,11 @@ const password = ref('')
 const confirmPassword = ref('')
 const confirmEmail = ref('')
 const router = useRouter()
-const authStore = useAuthStore()
+
 const errors = ref({
   general: '',
   email: '',
   password: '',
-})
-
-onMounted(() => {
-  if (authStore.isAuthenticated) {
-    router.push('/login')
-  }
 })
 
 const handleRegister = async () => {
@@ -53,7 +47,7 @@ const handleRegister = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:8000/api/register', {
+    await fetch('http://localhost:8000/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,10 +59,6 @@ const handleRegister = async () => {
         password: password.value,
       }),
     })
-
-    const data = await response.json()
-
-    authStore.setAuth(data.token, data.user)
 
     router.push('/login')
   } catch (error) {
@@ -96,7 +86,7 @@ const handleRegister = async () => {
             labelName="confirmar correo"
             placeholder="MiCorreo@gmail.com"
           />
-          <ImputErrorField v-if="errors.email" :labelName="errors.email" :disabled="true" />
+          <InputErrorField v-if="errors.email" :errorText="errors.email" />
           <TextInput
             v-model="password"
             type="password"
@@ -109,10 +99,10 @@ const handleRegister = async () => {
             labelName="confirmar contraseña"
             placeholder="MiContraseña"
           ></TextInput>
-          <ImputErrorField v-if="errors.password" :labelName="errors.password" :disabled="true" />
+          <InputErrorField v-if="errors.password" :errorText="errors.password" />
           <div>
             <BtnBase textBtn="Registrarse" class="w-[310px] h-8 mt-4" @click="handleRegister" />
-            <ImputErrorField v-if="errors.general" :labelName="errors.general" :disabled="true" />
+            <InputErrorField v-if="errors.general" :errorText="errors.general" />
           </div>
         </div>
       </div>

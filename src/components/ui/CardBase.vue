@@ -2,7 +2,7 @@
 defineProps({
   tituloCard: {
     type: String,
-    default: 'Mi Cart',
+    default: '',
   },
   nameUser: {
     type: String,

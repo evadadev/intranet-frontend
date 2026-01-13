@@ -1,8 +1,10 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+import { useAuthStore } from '@/stores/auth'
+
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
 const { logout, isAuthenticated, user } = useAuthStore()
@@ -93,16 +95,16 @@ const handleLogout = async () => {
       <div class="flex items-center justify-between gap-x-5 h-16">
         <h1 class="flex">MI PORTAL</h1>
         <p class="">Esta es la página de inicio</p>
-        <card-base
-          :titulo-card="user?.name"
+        <CardBase
+          :tituloCard="user?.name"
           class="flex flex-row items-center gap-2 h-12"
           :avatar="true"
         />
       </div>
       <div class="flex flex-row gap-3">
-        <card-base class="w-80 h-80" titulo-card="Tú equipo" avatar />
-        <card-base class="w-80 h-80" titulo-card="Mis tareas" />
-        <card-base class="w-80 h-80" titulo-card="Mis documentos" />
+        <CardBase class="w-80 h-80" tituloCard="Tú equipo" avatar />
+        <CardBase class="w-80 h-80" tituloCard="Mis tareas" />
+        <CardBase class="w-80 h-80" tituloCard="Mis documentos" />
       </div>
     </section>
   </div>
