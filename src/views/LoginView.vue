@@ -1,22 +1,18 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
 
 import BtnBase from '../components/ui/BtnBase.vue'
-import TextInput from '../components/ui/TextIput.vue'
+import TextInput from '../components/ui/TextInput.vue'
+import LayoutLogin from '@/components/ui/LayoutLogin.vue'
+import TitleForm from '@/components/ui/TitleForm.vue'
 
 const email = ref('')
 const password = ref('')
 const router = useRouter()
 const authStore = useAuthStore()
-
-onMounted(() => {
-  if (authStore.isAuthenticated) {
-    router.push('/')
-  }
-})
 
 const handleLogin = async () => {
   if (!email.value || !password.value) {
@@ -51,35 +47,22 @@ function handleRegister() {
 </script>
 
 <template>
-  <div class="flex flex-row items-center justify-items-start">
-    <div class="md:flex w-1/2 h-screen hidden">
-      <img src="../../public/img-oficina.png" alt="imagen-login" class="opacity-50" />
+  <LayoutLogin>
+    <TitleForm
+      titleText="Iniciar sesión"
+      subtitleText="Introduce tus credenciales para acceder a tu cuenta"
+    />
+    <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
+    <TextInput
+      v-model="password"
+      type="password"
+      labelName="contraseña"
+      placeholder="MiContraseña"
+    />
+    <div>
+      <a href="" class="flex justify-end text-xs text-sky-600 mb-2">¿Has olvidado la contraseña?</a>
+      <BtnBase textBtn="Iniciar Sesión" class="w-[310px] h-8" @click="handleLogin" />
+      <BtnBase textBtn="Registrarse" class="w-[310px] h-8" @click="handleRegister" />
     </div>
-    <div class="md:w-1/2 w-full h-screen flex flex-col items-center justify-center px-5">
-      <div class="flex flex-col max-w-[310px]">
-        <div class="pb-3">
-          <h2 class="text-3xl font-bold">Bienvenidos</h2>
-          <p class="text-sm">Introduce tu usuario y clave de acceso</p>
-        </div>
-        <div>
-          <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
-          <TextInput
-            v-model="password"
-            type="password"
-            labelName="contraseña"
-            placeholder="MiContraseña"
-          />
-          <div>
-            <a href="" class="flex justify-end text-xs text-sky-600 mb-2"
-              >¿Has olvidado la contraseña?</a
-            >
-            <BtnBase textBtn="Iniciar Sesión" class="w-[310px] h-8" @click="handleLogin" />
-            <BtnBase textBtn="Registrarse" class="w-[310px] h-8" @click="handleRegister" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </LayoutLogin>
 </template>
-
-<style scoped></style>
