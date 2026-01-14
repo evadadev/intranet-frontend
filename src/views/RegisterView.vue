@@ -2,15 +2,19 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { setRegister } from '@/services/auth.js'
+
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextIput.vue'
 import InputErrorField from '../components/ui/InputErrorField.vue'
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const confirmEmail = ref('')
+const dataForm = ref({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  confirmEmail: '',
+})
 const router = useRouter()
 
 const errors = ref({
@@ -26,38 +30,31 @@ const handleRegister = async () => {
     password: '',
   }
   if (
-    !name.value ||
-    !email.value ||
-    !password.value ||
-    !confirmPassword.value ||
-    !confirmEmail.value
+    !dataForm.value.name ||
+    !dataForm.value.email ||
+    !dataForm.value.password ||
+    !dataForm.value.confirmPassword ||
+    !dataForm.value.confirmEmail
   ) {
     errors.value.general = 'Por favor, rellena todos los campos'
     return
   }
 
-  if (email.value !== confirmEmail.value) {
+  if (dataForm.value.email !== dataForm.value.confirmEmail) {
     errors.value.email = 'Los correos no coinciden'
     return
   }
 
-  if (password.value !== confirmPassword.value) {
+  if (dataForm.value.password !== dataForm.value.confirmPassword) {
     errors.value.password = 'Las contraseñas no coinciden'
     return
   }
 
   try {
-    await fetch('http://localhost:8000/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        name: name.value,
-        email: email.value,
-        password: password.value,
-      }),
+    await setRegister({
+      name: dataForm.value.name,
+      email: dataForm.value.email,
+      password: dataForm.value.password,
     })
 
     router.push('/login')

@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { setLogin } from '@/services/auth.js'
 
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextIput.vue'
@@ -25,19 +26,12 @@ const handleLogin = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:8000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    })
+    const body = {
+      email: email.value,
+      password: password.value,
+    }
+    const data = await setLogin(body)
 
-    const data = await response.json()
     authStore.setAuth(data.token, data.user)
     router.push('/')
   } catch (error) {
