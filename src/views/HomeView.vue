@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 
 import { useAuthStore } from '@/stores/auth'
+import { setLogout } from '@/services/auth'
 
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
@@ -11,16 +12,7 @@ const { logout, isAuthenticated, user } = useAuthStore()
 
 const handleLogout = async () => {
   try {
-    await fetch('http://localhost:8000/api/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user: user.value,
-      }),
-    })
+    await setLogout({ user: user.value })
     if (isAuthenticated) {
       logout()
       router.push('/login')
