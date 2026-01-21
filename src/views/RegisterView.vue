@@ -3,8 +3,10 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import BtnBase from '../components/ui/BtnBase.vue'
-import TextInput from '../components/ui/TextIput.vue'
+import TextInput from '../components/ui/TextInput.vue'
 import InputErrorField from '../components/ui/InputErrorField.vue'
+import LayoutLogin from '@/components/ui/LayoutLogin.vue'
+import TitleForm from '@/components/ui/TitleForm.vue'
 
 const name = ref('')
 const email = ref('')
@@ -68,44 +70,35 @@ const handleRegister = async () => {
 </script>
 
 <template>
-  <div class="flex flex-row items-center justify-items-start">
-    <div class="md:flex w-1/2 h-screen hidden">
-      <img src="../../public/img-oficina.png" alt="imagen-login" class="opacity-50" />
+  <LayoutLogin>
+    <TitleForm
+      titleText="Crear una cuenta"
+      subtitleText="Rellena el formulario para registrarte en el portal"
+    />
+    <TextInput v-model="name" labelName="nombre completo" placeholder="Mi Nombre" />
+    <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
+    <TextInput
+      v-model="confirmEmail"
+      labelName="confirmar correo"
+      placeholder="MiCorreo@gmail.com"
+    />
+    <InputErrorField v-if="errors.email" :errorText="errors.email" />
+    <TextInput
+      v-model="password"
+      type="password"
+      labelName="contraseña"
+      placeholder="MiContraseña"
+    />
+    <TextInput
+      v-model="confirmPassword"
+      type="password"
+      labelName="confirmar contraseña"
+      placeholder="MiContraseña"
+    ></TextInput>
+    <InputErrorField v-if="errors.password" :errorText="errors.password" />
+    <div>
+      <BtnBase textBtn="Registrarse" class="w-[310px] h-8 mt-4" @click="handleRegister" />
+      <InputErrorField v-if="errors.general" :errorText="errors.general" />
     </div>
-    <div class="md:w-1/2 w-full h-screen flex flex-col items-center justify-center px-5">
-      <div class="flex flex-col max-w-[310px]">
-        <div class="pb-3">
-          <h2 class="text-3xl font-bold">Registro de usuario</h2>
-          <p class="text-sm">Rellena los campos para registrarte</p>
-        </div>
-        <div>
-          <TextInput v-model="name" labelName="nombre completo" placeholder="Mi Nombre" />
-          <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
-          <TextInput
-            v-model="confirmEmail"
-            labelName="confirmar correo"
-            placeholder="MiCorreo@gmail.com"
-          />
-          <InputErrorField v-if="errors.email" :errorText="errors.email" />
-          <TextInput
-            v-model="password"
-            type="password"
-            labelName="contraseña"
-            placeholder="MiContraseña"
-          />
-          <TextInput
-            v-model="confirmPassword"
-            type="password"
-            labelName="confirmar contraseña"
-            placeholder="MiContraseña"
-          ></TextInput>
-          <InputErrorField v-if="errors.password" :errorText="errors.password" />
-          <div>
-            <BtnBase textBtn="Registrarse" class="w-[310px] h-8 mt-4" @click="handleRegister" />
-            <InputErrorField v-if="errors.general" :errorText="errors.general" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </LayoutLogin>
 </template>
