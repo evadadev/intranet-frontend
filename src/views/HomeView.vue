@@ -7,15 +7,11 @@ import { setLogout } from '@/services/auth'
 
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import FontAwesomeIcon from '@/plugins/fontawesome'
 
 const router = useRouter()
 const { logout, isAuthenticated, user } = useAuthStore()
 const clicked = ref(false)
-
-const handleClick = () => {
-  clicked.value = !clicked.value
-}
 
 const handleLogout = async () => {
   try {
@@ -39,59 +35,55 @@ const handleLogout = async () => {
           <h2 class="my-3 pl-4">Portal de empleados</h2>
           <p class="border-b-[1px]"></p>
         </div>
-        <ul class="static flex flex-col pl-4 mt-4">
+        <ul class="mb-2 gap-2 flex flex-col pl-4 mt-4 text-[#2b7fff]">
           <BtnBase
             textBtn="Cerrar sesión"
             class="absolute bottom-1 left-2 w-[110px] h-8"
             @click="handleLogout"
           />
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="address-card" />
             <router-link class="no-underline hover:underline" to="/login">Registrarse</router-link>
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="clock" />
             <router-link class="no-underline hover:underline" to="/fichajes"
               >Mis fichajes</router-link
             >
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="ghost" />
             <router-link class="no-underline hover:underline" to="/faltas"
               >Mis ausencias</router-link
             >
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="clipboard-check" />
-            <router-link class="text-[#2b7fff] no-underline hover:underline" to="/tareas"
-              >Mis tareas</router-link
-            >
+            <router-link class="no-underline hover:underline" to="/tareas">Mis tareas</router-link>
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="calendar-check" />
-            <router-link class="text-[#2b7fff] no-underline hover:underline" to="/horarios"
+            <router-link class="no-underline hover:underline" to="/horarios"
               >Mis horarios</router-link
             >
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="file" />
-            <router-link class="text-[#2b7fff] no-underline hover:underline" to="/documentos"
+            <router-link class="no-underline hover:underline" to="/documentos"
               >Mis documentos</router-link
             >
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="people-group" />
-            <router-link class="text-[#2b7fff] no-underline hover:underline" to="/usuarios"
-              >Equipo</router-link
-            >
+            <router-link class="no-underline hover:underline" to="/usuarios">Equipo</router-link>
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="chart-simple" />
-            <router-link class="text-[#2b7fff] no-underline hover:underline" to="/estadisticas"
+            <router-link class="no-underline hover:underline" to="/estadisticas"
               >Estadisticas</router-link
             >
           </li>
-          <li class="mb-2 gap-2 flex items-center text-[#2b7fff]">
+          <li>
             <font-awesome-icon icon="user" />
             <router-link class="no-underline hover:underline" to="/perfil">Perfil</router-link>
           </li>
@@ -109,7 +101,7 @@ const handleLogout = async () => {
           <CardBase
             class="flex flex-row items-center gap-2 h-12"
             icon="angle-down"
-            @click="handleClick"
+            @click="clicked = !clicked"
             :tituloCard="user?.name"
             :avatar="true"
           >

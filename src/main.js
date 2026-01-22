@@ -5,37 +5,7 @@ import App from './App.vue'
 import router from './router'
 import i18n from './plugins/i18n'
 import './style.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-  faAddressCard,
-  faAngleDown,
-  faBell,
-  faCalendarCheck,
-  faChartSimple,
-  faClipboardCheck,
-  faClock,
-  faFile,
-  faGhost,
-  faPeopleGroup,
-  faUser,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
-
-library.add(
-  faUser,
-  faAngleDown,
-  faXmark,
-  faBell,
-  faFile,
-  faAddressCard,
-  faGhost,
-  faCalendarCheck,
-  faClock,
-  faClipboardCheck,
-  faPeopleGroup,
-  faChartSimple,
-)
+import FontAwesomeIcon from '@/plugins/fontawesome'
 
 const app = createApp(App)
 
