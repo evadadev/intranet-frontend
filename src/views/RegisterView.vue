@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { setRegister } from '@/services/auth.js'
+import { register } from '@/services/auth.js'
 
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextInput.vue'
@@ -53,7 +53,7 @@ const handleRegister = async () => {
   }
 
   try {
-    await setRegister({
+    await register({
       name: dataForm.value.name,
       email: dataForm.value.email,
       password: dataForm.value.password,

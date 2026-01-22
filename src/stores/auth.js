@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  function logout() {
+  function clearAuth() {
     token.value = null
     user.value = null
     localStorage.removeItem('token')
@@ -29,6 +29,6 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     isAuthenticated,
     setAuth,
-    logout,
+    clearAuth,
   }
 })
