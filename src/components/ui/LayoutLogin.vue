@@ -20,9 +20,9 @@ onMounted(() => {
       <img src="/img-oficina.png" alt="imagen-login" class="opacity-50" />
     </div>
     <div class="md:w-1/2 w-full h-screen flex flex-col items-center justify-center px-5">
-      <div class="flex flex-col max-w-[310px]">
-        <slot></slot>
-      </div>
+      <slot>
+        <div class="flex flex-col max-w-[310px]" />
+      </slot>
     </div>
   </div>
 </template>
