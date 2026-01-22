@@ -33,7 +33,7 @@ const handleLogout = async () => {
       >
         <div class="text-[#2b7fff]">
           <h2 class="my-3 pl-4">Portal de empleados</h2>
-          <p class="border-b-[1px]"></p>
+          <p class="border-b" />
         </div>
         <ul class="mb-2 gap-2 flex flex-col pl-4 mt-4 text-[#2b7fff]">
           <BtnBase
