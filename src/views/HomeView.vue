@@ -3,21 +3,21 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
-import { setLogout } from '@/services/auth'
+import { logout } from '@/services/auth'
 
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
 import FontAwesomeIcon from '@/plugins/fontawesome'
 
 const router = useRouter()
-const { logout, isAuthenticated, user } = useAuthStore()
+const { clearAuth, isAuthenticated, user } = useAuthStore()
 const clicked = ref(false)
 
 const handleLogout = async () => {
   try {
-    await setLogout({ user: user.value })
+    await logout({ user: user.value })
     if (isAuthenticated) {
-      logout()
+      clearAuth()
       router.push('/login')
     }
   } catch (error) {

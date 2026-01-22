@@ -10,7 +10,7 @@ export async function login(body) {
   return response
 }
 
-export async function setLogout(body) {
+export async function logout(body) {
   const response = await post('logout', body)
   return response
 }
