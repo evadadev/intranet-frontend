@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
-import { setLogin } from '@/services/auth.js'
+import { login } from '@/services/auth.js'
 
 import BtnBase from '../components/ui/BtnBase.vue'
 import TextInput from '../components/ui/TextInput.vue'
@@ -26,7 +26,7 @@ const handleLogin = async () => {
       email: email.value,
       password: password.value,
     }
-    const data = await setLogin(body)
+    const data = await login(body)
 
     authStore.setAuth(data.token, data.user)
     router.push('/')
