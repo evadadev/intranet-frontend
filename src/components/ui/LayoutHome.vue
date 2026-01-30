@@ -1,21 +1,18 @@
 <script setup>
-import LayoutHeaders from '@/components/ui/LayoutHeaders.vue'
-import LayoutSidebar from '@/components/ui/LayoutSidebar.vue'
-import LayoutMain from '@/components/ui/LayoutMain.vue'
+import LayoutSidebar from './LayoutSidebar.vue'
+import LayoutHeaders from './LayoutHeaders.vue'
+import LayoutMain from './LayoutMain.vue'
 
 import CardBase from '@/components/ui/CardBase.vue'
 </script>
 <template>
-  <div class="bg-neutral-100 grid grid-cols-[200px_1fr] gap-4 p-2 min-h-screen">
-    <LayoutSidebar titleSidebar="Portal de empleados" />
-    <section class="flex flex-col">
-      <LayoutHeaders tituloHeader="MI PORTAL" />
-      <LayoutMain>
-        <CardBase class="w-80 h-80" tituloCard="Tú equipo" avatar />
-        <CardBase class="w-80 h-80" tituloCard="Mis tareas" />
-        <CardBase class="w-80 h-80" tituloCard="Mis documentos" />
-      </LayoutMain>
-    </section>
+  <LayoutSidebar />
+  <div class="fixed right-1 left-52">
+    <LayoutHeaders tituloHeader="MI PORTAL" />
+    <LayoutMain class="flex flex-row gap-3">
+      <CardBase class="w-80 h-80" tituloCard="Tú equipo" avatar />
+      <CardBase class="w-80 h-80" tituloCard="Mis tareas" icon="bell" />
+      <CardBase class="w-80 h-80" tituloCard="Mis documentos" icon="file" />
+    </LayoutMain>
   </div>
-  <slot />
 </template>

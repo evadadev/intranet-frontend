@@ -1,68 +1,54 @@
 <script setup>
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-
-import BtnBase from '@/components/ui/BtnBase.vue'
-
-defineProps({
-  titleSidebar: {
-    type: String,
-    default: '',
-  },
-})
-
-const router = useRouter()
-const { logout, isAuthenticated, user } = useAuthStore()
-const links = [
-  { pathLink: '/register', titleLink: 'Registrarse' },
-  { pathLink: '/fichas', titleLink: 'Mis fichajes' },
-  { pathLink: '/faltas', titleLink: 'Mis ausencias' },
-  { pathLink: '/horarios', titleLink: 'Mis horarios' },
-  { pathLink: '/documentos', titleLink: 'Mis documentos' },
-  { pathLink: '/equipo', titleLink: 'Mi equipo' },
-  { pathLink: '/estadisticas', titleLink: 'Estadísticas' },
-  { pathLink: '/perfil', titleLink: 'Perfil' },
-]
-
-const handleLogout = async () => {
-  try {
-    await fetch('http://localhost:8000/api/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user: user.value,
-      }),
-    })
-    if (isAuthenticated) {
-      logout()
-      router.push('/login')
-    }
-  } catch (error) {
-    console.log('Error al cerrar sesión:', error)
-  }
-}
+import FontAwesomeIcon from '@/plugins/fontawesome'
 </script>
+
 <template>
-  <section>
-    <div
-      class="fixed top-0 bottom-0 right-0 left-0 w-[200px] p-4 gap-4 border-r border-r-gray-300 bg-gray-50"
-    >
-      <h2 class="mb-10">{{ titleSidebar }}</h2>
-      <ul class="static flex flex-col">
-        <BtnBase
-          textBtn="Cerrar sesión"
-          class="absolute bottom-1 left-2 w-[110px] h-8"
-          @click="handleLogout"
-        />
-        <li v-for="(link, index) in links" :key="index" class="mb-2">
-          <router-link class="text-[#2b7fff] no-underline hover:underline" :to="link.pathLink">{{
-            link.titleLink
-          }}</router-link>
-        </li>
-      </ul>
+  <div class="fixed top-0 bottom-0 right-0 left-0 w-[200px] border-r border-r-gray-300 bg-gray-50">
+    <div class="text-[#2b7fff]">
+      <h2 class="my-3 pl-4">Portal de empleados</h2>
+      <p class="border-b" />
     </div>
-  </section>
+    <ul class="mb-2 gap-2 flex flex-col pl-4 mt-4 text-[#2b7fff]">
+      <li>
+        <font-awesome-icon icon="address-card" />
+        <router-link class="no-underline hover:underline" to="/login">Registrarse</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="clock" />
+        <router-link class="no-underline hover:underline" to="/fichajes">Mis fichajes</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="ghost" />
+        <router-link class="no-underline hover:underline" to="/faltas">Mis ausencias</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="clipboard-check" />
+        <router-link class="no-underline hover:underline" to="/tareas">Mis tareas</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="calendar-check" />
+        <router-link class="no-underline hover:underline" to="/horarios">Mis horarios</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="file" />
+        <router-link class="no-underline hover:underline" to="/documentos"
+          >Mis documentos</router-link
+        >
+      </li>
+      <li>
+        <font-awesome-icon icon="people-group" />
+        <router-link class="no-underline hover:underline" to="/usuarios">Equipo</router-link>
+      </li>
+      <li>
+        <font-awesome-icon icon="chart-simple" />
+        <router-link class="no-underline hover:underline" to="/estadisticas"
+          >Estadisticas</router-link
+        >
+      </li>
+      <li>
+        <font-awesome-icon icon="user" />
+        <router-link class="no-underline hover:underline" to="/perfil">Perfil</router-link>
+      </li>
+    </ul>
+  </div>
 </template>
