@@ -5,8 +5,11 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { login } from '@/services/auth.js'
 
-import BtnBase from '../components/ui/BtnBase.vue'
-import TextInput from '../components/ui/TextInput.vue'
+import useVuelidate from '@vuelidate/core'
+import { required, email as emailValidator } from '@vuelidate/validators'
+
+import BtnBase from '@/components/ui/BtnBase.vue'
+import TextInput from '@/components/ui/TextInput.vue'
 import LayoutLogin from '@/components/ui/LayoutLogin.vue'
 import TitleForm from '@/components/ui/TitleForm.vue'
 
@@ -16,8 +19,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const handleLogin = async () => {
-  if (!email.value || !password.value) {
-    console.log('introduce el el email y la contraseña')
+  if (v$.value.$invalid) {
     return
   }
 
@@ -38,6 +40,12 @@ const handleLogin = async () => {
 function handleRegister() {
   router.push('/register')
 }
+
+const rules = {
+  email: { required, emailValidator },
+  password: { required },
+}
+const v$ = useVuelidate(rules, { email, password })
 </script>
 
 <template>
