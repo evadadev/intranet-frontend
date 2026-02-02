@@ -3,7 +3,7 @@ import FontAwesomeIcon from '@/plugins/fontawesome'
 </script>
 
 <template>
-  <div class="fixed top-0 bottom-0 right-0 left-0 w-[200px] border-r border-r-gray-300 bg-gray-50">
+  <div class="w-[200px] border-r border-r-gray-300 bg-gray-50">
     <div class="text-[#2b7fff]">
       <h2 class="my-3 pl-4">Portal de empleados</h2>
       <p class="border-b" />

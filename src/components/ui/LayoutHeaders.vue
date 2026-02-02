@@ -33,9 +33,9 @@ const handleLogout = async () => {
       <h1 class="flex">MI PORTAL</h1>
     </div>
     <p class="">Esta es la página de inicio</p>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-col items-center gap-2">
       <CardBase
-        class="flex flex-row items-center gap-2 h-12"
+        class="flex items-center gap-2 h-12"
         icon="angle-down"
         @click="clicked = !clicked"
         :tituloCard="user?.name"
@@ -43,14 +43,12 @@ const handleLogout = async () => {
       >
       </CardBase>
 
-      <CardBase v-if="clicked" class="flex flex-col w-60 h-60 mt-80 right-5 absolute items-center">
+      <CardBase v-if="clicked" class="absolute top-14">
         <ul>
           <li>
-            <router-link class="absolute left-4 bottom-12 no-underline hover:underline" to="/perfil"
-              >Perfil</router-link
-            >
+            <router-link class="no-underline hover:underline" to="/perfil">Perfil</router-link>
           </li>
-          <li class="text-red-600 absolute bottom-4 left-4" @click="handleLogout">Cerrar sesión</li>
+          <li class="text-red-600 bottom-4 left-4" @click="handleLogout">Cerrar sesión</li>
         </ul>
       </CardBase>
     </div>
