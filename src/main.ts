@@ -5,7 +5,8 @@ import App from './App.vue'
 import router from './router'
 import i18n from './plugins/i18n'
 import './style.css'
-import FontAwesomeIcon from '@/plugins/fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import '@/plugins/fontawesome'
 
 const app = createApp(App)
 

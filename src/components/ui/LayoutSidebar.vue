@@ -1,5 +1,6 @@
-<script setup>
-import FontAwesomeIcon from '@/plugins/fontawesome'
+<script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import '@/plugins/fontawesome'
 </script>
 
 <template>

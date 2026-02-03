@@ -9,9 +9,9 @@ import EquipoView from '../views/EquipoView.vue'
 import EstadisticasView from '../views/EstadisticasView.vue'
 import PerfilView from '../views/PerfilView.vue'
 
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', component: LoginView },
   { path: '/register', component: RegisterView },
