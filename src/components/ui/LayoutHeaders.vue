@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -7,7 +7,8 @@ import { logout } from '@/services/auth'
 
 import CardBase from '@/components/ui/CardBase.vue'
 
-import FontAwesomeIcon from '@/plugins/fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import '@/plugins/fontawesome'
 
 const router = useRouter()
 const { user, isAuthenticated, clearAuth } = useAuthStore()
@@ -38,7 +39,8 @@ const handleLogout = async () => {
         class="flex items-center gap-2 h-12"
         icon="angle-down"
         @click="clicked = !clicked"
-        :tituloCard="user?.name"
+        :tituloCard="user?.user"
+        :nameUser="user?.user"
         :avatar="true"
       >
       </CardBase>

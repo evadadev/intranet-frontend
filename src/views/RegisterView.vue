@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -10,7 +10,21 @@ import InputErrorField from '../components/ui/InputErrorField.vue'
 import LayoutLogin from '@/components/ui/LayoutLogin.vue'
 import TitleForm from '@/components/ui/TitleForm.vue'
 
-const dataForm = ref({
+interface DataForm {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+  confirmEmail: string
+}
+
+interface Errors {
+  general?: string
+  email?: string
+  password?: string
+}
+
+const dataForm = ref<DataForm>({
   name: '',
   email: '',
   password: '',
@@ -19,7 +33,7 @@ const dataForm = ref({
 })
 const router = useRouter()
 
-const errors = ref({
+const errors = ref<Errors>({
   general: '',
   email: '',
   password: '',
@@ -72,22 +86,22 @@ const handleRegister = async () => {
       titleText="Crear una cuenta"
       subtitleText="Rellena el formulario para registrarte en el portal"
     />
-    <TextInput v-model="name" labelName="nombre completo" placeholder="Mi Nombre" />
-    <TextInput v-model="email" labelName="correo" placeholder="MiCorreo@gmail.com" />
+    <TextInput v-model="dataForm.name" labelName="nombre completo" placeholder="Mi Nombre" />
+    <TextInput v-model="dataForm.email" labelName="correo" placeholder="MiCorreo@gmail.com" />
     <TextInput
-      v-model="confirmEmail"
+      v-model="dataForm.confirmEmail"
       labelName="confirmar correo"
       placeholder="MiCorreo@gmail.com"
     />
     <InputErrorField v-if="errors.email" :errorText="errors.email" />
     <TextInput
-      v-model="password"
+      v-model="dataForm.password"
       type="password"
       labelName="contraseña"
       placeholder="MiContraseña"
     />
     <TextInput
-      v-model="confirmPassword"
+      v-model="dataForm.confirmPassword"
       type="password"
       labelName="confirmar contraseña"
       placeholder="MiContraseña"

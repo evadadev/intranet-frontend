@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -13,8 +13,13 @@ import TextInput from '@/components/ui/TextInput.vue'
 import LayoutLogin from '@/components/ui/LayoutLogin.vue'
 import TitleForm from '@/components/ui/TitleForm.vue'
 
-const email = ref('')
-const password = ref('')
+interface LoginForm {
+  email: string
+  password: string
+}
+
+const email = ref<LoginForm['email']>('')
+const password = ref<LoginForm['password']>('')
 const router = useRouter()
 const authStore = useAuthStore()
 

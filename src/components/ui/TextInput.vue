@@ -1,24 +1,22 @@
-<script setup>
-defineProps({
-  labelName: {
-    type: String,
-    default: 'Label',
-  },
-  placeholder: {
-    type: String,
-    default: 'Enter text',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  type: {
-    type: String,
-    default: 'text',
-  },
+<script setup lang="ts">
+interface Props {
+  labelName?: string
+  placeholder?: string
+  disabled?: boolean
+  type?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  labelName: 'Label',
+  placeholder: 'Enter text',
+  disabled: false,
+  type: 'text',
 })
 
-const modelValue = defineModel()
+const modelValue = defineModel('modelValue', {
+  type: String,
+  default: '',
+})
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-export async function post(endpoint, body) {
+export async function post(endpoint: string, body: Record<string, any>) {
   const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
     method: 'POST',
     headers: {
@@ -10,7 +10,7 @@ export async function post(endpoint, body) {
   return response.json()
 }
 
-export async function get(endpoint) {
+export async function get(endpoint: string) {
   const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
     method: 'GET',
     headers: {
@@ -21,7 +21,7 @@ export async function get(endpoint) {
   return response.json()
 }
 
-export async function put(endpoint, body) {
+export async function put(endpoint: string, body: Record<string, any>) {
   const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
     method: 'PUT',
     headers: {
@@ -33,7 +33,7 @@ export async function put(endpoint, body) {
   return response.json()
 }
 
-export async function destroy(endpoint) {
+export async function destroy(endpoint: string) {
   const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
     method: 'DELETE',
     headers: {

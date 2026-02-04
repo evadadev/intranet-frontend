@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import LayoutSidebar from './LayoutSidebar.vue'
 import LayoutHeaders from './LayoutHeaders.vue'
 import LayoutMain from './LayoutMain.vue'
