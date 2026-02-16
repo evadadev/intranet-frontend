@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="pb-3">
-    <h2 class="text-3xl font-bold">{{ props.titleText }}</h2>
-    <p class="text-sm">{{ props.subtitleText }}</p>
+    <h2 class="text-2xl font-semibold">{{ titleText }}</h2>
+    <p class="text-sm">{{ subtitleText }}</p>
   </div>
 </template>
