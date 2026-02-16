@@ -2,11 +2,11 @@
 defineProps({
   labelName: {
     type: String,
-    default: 'Label',
+    default: '',
   },
   placeholder: {
     type: String,
-    default: 'Enter text',
+    default: '',
   },
   disabled: {
     type: Boolean,
@@ -14,7 +14,7 @@ defineProps({
   },
   type: {
     type: String,
-    default: 'text',
+    default: '',
   },
 })
 

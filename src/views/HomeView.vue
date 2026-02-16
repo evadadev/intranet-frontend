@@ -1,7 +1,7 @@
 <script setup>
-import LayoutHome from '@/components/ui/LayoutHome.vue'
+import LayoutApp from '@/components/ui/LayoutApp.vue'
 </script>
 
 <template>
-  <LayoutHome />
+  <LayoutApp />
 </template>
