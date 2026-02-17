@@ -7,10 +7,10 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  labelName: 'Label',
-  placeholder: 'Enter text',
+  labelName: '',
+  placeholder: '',
   disabled: false,
-  type: 'text',
+  type: '',
 })
 
 const modelValue = defineModel('modelValue', {
