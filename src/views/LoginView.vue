@@ -12,6 +12,7 @@ import BtnBase from '@/components/ui/BtnBase.vue'
 import TextInput from '@/components/ui/TextInput.vue'
 import LayoutLogin from '@/components/ui/LayoutLogin.vue'
 import TitleForm from '@/components/ui/TitleForm.vue'
+import SelecForm from '@/components/ui/SelecForm.vue'
 
 interface LoginForm {
   email: string
