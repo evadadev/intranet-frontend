@@ -11,6 +11,7 @@ import CardBase from '@/components/ui/CardBase.vue'
 import LayoutApp from '@/components/ui/LayoutApp.vue'
 import TitleForm from '@/components/ui/TitleForm.vue'
 import TextInput from '@/components/ui/TextInput.vue'
+import SelecForm from '@/components/ui/SelecForm.vue'
 
 const auhtStore = useAuthStore()
 
@@ -60,41 +61,37 @@ const handleUpdate = async () => {
           <h2 class="font-semibold">Información personal</h2>
           <TextInput v-model="user.user.name" type="text" labelName="Nombre*" />
           <TextInput v-model="user.surname" type="text" labelName="Apellidos*" />
-          <label for="identification" class="flex flex-col items-start gap-1 text-sm mt-4"
-            >Tipo de identificación*</label
-          >
-          <select
+          <SelecForm
             v-model="user.identification"
-            class="w-full text-gray-600 border border-gray-200 border-solid rounded-sm p-2"
-          >
-            <option value="dni">DNI</option>
-            <option value="nie">NIE</option>
-            <option value="passport">Pasaporte</option>
-          </select>
+            labelText="Tipo de indentificación*"
+            :options="[
+              { valueOption: 'dni', textOption: 'DNI' },
+              { valueOption: 'nie', textOption: 'NIE' },
+              { valueOption: 'passport', textOption: 'Pasaporte' },
+            ]"
+          />
           <TextInput v-model="user.dni" type="text" labelName="DNI*" />
           <TextInput v-model="user.nationality" type="text" labelName="Nacionalidad*" />
-          <label for="estado_civil" class="flex flex-col items-start gap-1 text-sm mt-4"
-            >Estado civil*</label
-          >
-          <select
+          <SelecForm
             v-model="user.maritalStatus"
-            class="w-full text-gray-600 border border-gray-200 border-solid rounded-sm p-2"
-          >
-            <option value="single">Soltero/a</option>
-            <option value="married">Casado/a</option>
-            <option value="divorced">Divorciado/a</option>
-            <option value="widower">Viudo/a</option>
-            <option value="other">Otros</option>
-          </select>
-          <label for="genero" class="flex flex-col items-start gap-1 text-sm mt-4">Género*</label>
-          <select
+            labelText="Estado civil*"
+            :options="[
+              { valueOption: 'single', textOption: 'Soltero/a' },
+              { valueOption: 'married', textOption: 'Casado/a' },
+              { valueOption: 'divorced', textOption: 'Divorciado/a' },
+              { valueOption: 'widower', textOption: 'Viudo/a' },
+              { valueOption: 'other', textOption: 'Otros' },
+            ]"
+          />
+          <SelecForm
             v-model="user.gender"
-            class="w-full text-gray-600 border border-gray-200 border-solid rounded-sm p-2"
-          >
-            <option value="male">Hombre</option>
-            <option value="female">Mujer</option>
-            <option value="other">Otros</option>
-          </select>
+            labelText="Género*"
+            :options="[
+              { valueOption: 'male', textOption: 'Hombre' },
+              { valueOption: 'female', textOption: 'Mujer' },
+              { valueOption: 'other', textOption: 'Otros' },
+            ]"
+          />
           <TextInput v-model="user.birthDate" type="date" labelName="Fecha de nacimiento*" />
           <TextInput v-model="user.phone" type="text" labelName="Teléfono*" />
         </div>
