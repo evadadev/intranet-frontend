@@ -33,7 +33,6 @@ const handleLogout = async () => {
       <font-awesome-icon icon="user" />
       <h1 class="flex">MI PORTAL</h1>
     </div>
-    <p class="">Esta es la página de inicio</p>
     <div class="flex flex-col items-center gap-2">
       <CardBase
         class="flex items-center gap-2 h-12"
