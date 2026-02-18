@@ -38,7 +38,7 @@ import '@/plugins/fontawesome'
       </li>
       <li>
         <font-awesome-icon icon="people-group" />
-        <router-link class="no-underline hover:underline" to="/usuarios">Equipo</router-link>
+        <router-link class="no-underline hover:underline" to="/equipo">Equipo</router-link>
       </li>
       <li>
         <font-awesome-icon icon="chart-simple" />
