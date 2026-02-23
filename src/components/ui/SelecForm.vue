@@ -14,10 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   options: () => [],
 })
 
-const modelValue = defineModel('modelValue', {
-  type: String,
-  default: '',
-})
+const modelValue = defineModel('modelValue')
 </script>
 
 <template>

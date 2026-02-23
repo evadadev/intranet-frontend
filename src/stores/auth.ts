@@ -12,9 +12,13 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('token', authToken)
 
     if (authUser) {
-      user.value = authUser
-      localStorage.setItem('user', JSON.stringify(authUser))
+      setUser(authUser)
     }
+  }
+
+  function setUser(authUser: string) {
+    user.value = authUser
+    localStorage.setItem('user', JSON.stringify(authUser))
   }
 
   function clearAuth() {

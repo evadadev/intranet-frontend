@@ -10,13 +10,10 @@ const props = withDefaults(defineProps<Props>(), {
   labelName: '',
   placeholder: '',
   disabled: false,
-  type: '',
+  type: 'text',
 })
 
-const modelValue = defineModel('modelValue', {
-  type: String,
-  default: '',
-})
+const modelValue = defineModel('modelValue')
 </script>
 
 <template>
