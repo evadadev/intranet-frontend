@@ -3,8 +3,9 @@ import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { ref } from 'vue'
 
-import { getProfile, putProfile } from '@/services/profile'
+import { getUsers, putUsers } from '@/services/users'
 import { useAuthStore } from '@/stores/auth'
+import type { User } from '@/types/types'
 
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
@@ -14,28 +15,11 @@ import TextInput from '@/components/ui/TextInput.vue'
 import SelecForm from '@/components/ui/SelecForm.vue'
 
 const auhtStore = useAuthStore()
-
-const user = ref({
-  user_id: auhtStore.user.id,
-  surname: '',
-  dni: '',
-  identification: '',
-  nationality: '',
-  maritalStatus: '',
-  gender: '',
-  birthDate: '',
-  phone: '',
-  residence: '',
-  zipCode: '',
-  province: '',
-  locality: '',
-  country: '',
-  user: { ...auhtStore.user },
-})
+const user = ref<User | Record<string, unknown>>({})
 
 onMounted(async () => {
   try {
-    user.value = await getProfile(auhtStore.user.id)
+    user.value = await getUsers(auhtStore.user.id)
   } catch (error) {
     console.log('Error al obtener el perfil:', error)
   }
@@ -48,7 +32,7 @@ const btnVolverInicio = () => {
 }
 
 const handleUpdate = async () => {
-  await putProfile(user.value, auhtStore.user.id)
+  await putUsers(user.value, auhtStore.user.id)
 }
 </script>
 
@@ -59,7 +43,7 @@ const handleUpdate = async () => {
       <div class="flex w-full items-center justify-items-start">
         <div class="w-1/2 h-screen flex flex-col px-5">
           <h2 class="font-semibold">Información personal</h2>
-          <TextInput v-model="user.user.name" type="text" labelName="Nombre*" />
+          <TextInput v-model="user.name" type="text" labelName="Nombre*" />
           <TextInput v-model="user.surname" type="text" labelName="Apellidos*" />
           <SelecForm
             v-model="user.identification"
