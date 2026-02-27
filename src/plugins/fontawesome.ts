@@ -12,6 +12,7 @@ import {
   faPeopleGroup,
   faUser,
   faXmark,
+  faPencil,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -27,4 +28,5 @@ library.add(
   faClipboardCheck,
   faPeopleGroup,
   faChartSimple,
+  faPencil,
 )

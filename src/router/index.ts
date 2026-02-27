@@ -1,27 +1,32 @@
-import LoginView from '../views/LoginView.vue'
-import Home from '../views/HomeView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import FichasView from '../views/FichasView.vue'
-import FaltasView from '../views/FaltasView.vue'
-import HorariosView from '../views/HorariosView.vue'
-import DocumentosView from '../views/DocumentosView.vue'
-import TimeView from '../views/TimeView.vue'
-import EstadisticasView from '../views/EstadisticasView.vue'
-import ProfileView from '../views/ProfileView.vue'
-
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/login', component: LoginView },
-  { path: '/register', component: RegisterView },
-  { path: '/fichas', component: FichasView },
-  { path: '/faltas', component: FaltasView },
-  { path: '/horarios', component: HorariosView },
-  { path: '/documentos', component: DocumentosView },
-  { path: '/equipo', component: TimeView },
-  { path: '/estadisticas', component: EstadisticasView },
-  { path: '/perfil', component: ProfileView },
+  { path: '/', name: 'Home', component: () => import('../views/HomeView.vue') },
+  { path: '/login', name: 'LoginView', component: () => import('../views/LoginView.vue') },
+  { path: '/register', name: 'RegisterView', component: () => import('../views/RegisterView.vue') },
+  { path: '/fichas', name: 'FichasView', component: () => import('../views/FichasView.vue') },
+  { path: '/faltas', name: 'FaltasView', component: () => import('../views/FaltasView.vue') },
+  { path: '/horarios', name: 'HorariosView', component: () => import('../views/HorariosView.vue') },
+  {
+    path: '/documentos',
+    name: 'DocumentosView',
+    component: () => import('../views/DocumentosView.vue'),
+  },
+  { path: '/equipo', name: 'TeamView', component: () => import('../views/TeamView.vue') },
+  {
+    path: '/estadisticas',
+    name: 'EstadisticasView',
+    component: () => import('../views/EstadisticasView.vue'),
+  },
+  { path: '/perfil', name: 'ProfileView', component: () => import('../views/ProfileView.vue') },
+  {
+    path: '/user/:id',
+    name: 'UserDetailView ',
+    component: () => import('../views/UserDetailView .vue'),
+    props: (router) => ({
+      userId: Number(router.params.id),
+    }),
+  },
 ]
 
 const router = createRouter({

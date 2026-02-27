@@ -3,7 +3,7 @@ const isToken = () => {
   !token ? null : token
 }
 
-export async function post(endpoint, body) {
+export async function post(endpoint: string, body: Record<string, any>) {
   const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
     method: 'POST',
     headers: {
