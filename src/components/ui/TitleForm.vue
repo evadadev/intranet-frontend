@@ -10,8 +10,8 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="pb-3">
-    <h2 class="text-2xl font-semibold">{{ titleText }}</h2>
+  <div>
+    <h2 class="text-xl font-semibold">{{ titleText }}</h2>
     <p class="text-sm">{{ subtitleText }}</p>
   </div>
 </template>

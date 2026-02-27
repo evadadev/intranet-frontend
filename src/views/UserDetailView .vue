@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { onMounted } from 'vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { getUser, putUser } from '@/services/users'
-import { useAuthStore } from '@/stores/auth'
 import type { User } from '@/types/types'
+import { getUser, putUser } from '@/services/users'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import '@/plugins/fontawesome'
 
 import BtnBase from '@/components/ui/BtnBase.vue'
 import CardBase from '@/components/ui/CardBase.vue'
@@ -14,35 +14,42 @@ import TitleForm from '@/components/ui/TitleForm.vue'
 import TextInput from '@/components/ui/TextInput.vue'
 import SelecForm from '@/components/ui/SelecForm.vue'
 
-const auhtStore = useAuthStore()
-const user = ref<User | Record<string, unknown>>({})
+const user = ref<User | null>(null)
+const route = useRoute()
 
 onMounted(async () => {
   try {
-    user.value = await getUser(auhtStore.user.id)
+    const id = Number(route.params.id)
+    user.value = await getUser(id)
   } catch (error) {
     console.log('Error al obtener el perfil:', error)
   }
 })
 
-const router = useRouter()
-
-const btnVolverInicio = () => {
-  router.push('/')
-}
-
 const handleUpdate = async () => {
-  await putUser(user.value, auhtStore.user.id)
+  if (!user.value) return
+  try {
+    const id = Number(route.params.id)
+    if (!id) throw new Error('ID inválido')
+    await putUser(user.value, id)
+
+    console.log('Usuario actualizado correctamente')
+  } catch (error) {
+    console.error('Error al actualizar:', error)
+  }
 }
 </script>
 
 <template>
-  <LayoutApp>
+  <LayoutApp v-if="user">
     <CardBase>
-      <TitleForm titleText="Mi perfil" />
+      <div class="flex items-center gap-1">
+        <font-awesome-icon icon="user" />
+        <TitleForm :titleText="`${user.name} ${user.surname}`" />
+      </div>
       <div class="flex w-full items-center justify-items-start">
         <div class="w-1/2 h-screen flex flex-col px-5">
-          <h2 class="font-semibold">Información personal</h2>
+          <h2 class="font-semibold">Modifar datos personales</h2>
           <TextInput v-model="user.name" type="text" labelName="Nombre*" />
           <TextInput v-model="user.surname" type="text" labelName="Apellidos*" />
           <SelecForm
@@ -80,7 +87,6 @@ const handleUpdate = async () => {
           <TextInput v-model="user.phone" type="text" labelName="Teléfono*" />
         </div>
         <div class="w-1/2 h-screen flex flex-col px-5">
-          <h2 class="font-semibold">Domicilio</h2>
           <TextInput v-model="user.residence" type="text" labelName="Residencia*" />
           <TextInput v-model="user.zipCode" type="text" labelName="Código postal*" />
           <TextInput v-model="user.province" type="text" labelName="Provincia*" />
@@ -89,11 +95,6 @@ const handleUpdate = async () => {
           <BtnBase class="w-[110px] h-8" textBtn="Guardar" @click="handleUpdate" />
         </div>
       </div>
-      <BtnBase
-        textBtn="Incio"
-        class="absolute bottom-1 left-2 w-[110px] h-8"
-        @click="btnVolverInicio"
-      />
     </CardBase>
   </LayoutApp>
 </template>
